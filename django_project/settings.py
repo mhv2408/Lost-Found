@@ -86,9 +86,10 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 if 'DATABASE_URL' in os.environ:
     print("Using the Postgres URL")
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-    }
+    database_url = os.environ.get('DATABASE_URL')
+    parsed_database_url = dj_database_url.parse(database_url)
+    print("Parsed DATABASE_URL:", parsed_database_url)
+    DATABASES = {'default': parsed_database_url}
 else:
     print("Postgres URL not found, using sqlite instead")
     DATABASES = {
